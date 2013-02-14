@@ -10,6 +10,7 @@ pub enum Event {
     pub KeyDownEvent(KeyboardEvent),
     pub KeyUpEvent(KeyboardEvent),
     pub MouseMotionEvent(MouseMotionEvent),
+    pub VideoResizeEvent(VideoResizeEvent),
     pub QuitEvent,
     pub NoEvent
 }
@@ -30,6 +31,12 @@ pub struct MouseMotionEvent {
     y: u16,
     xrel: i16,
     yrel: i16
+}
+
+#[deriving_eq]
+pub struct VideoResizeEvent {
+    w: u32,
+    h: u32
 }
 
 fn null_event() -> ll::event::SDL_Event {
@@ -78,6 +85,10 @@ pub fn poll_event() -> Event {
             SDL_MOUSEMOTION => {
                 let raw_mouse_event: &SDL_MouseMotionEvent = transmute(&raw_event);
                 MouseMotionEvent(raw_mouse_event.to_hl())
+            }
+            SDL_VIDEORESIZE => {
+                let raw_videoresize_event: &SDL_VideoResizeEvent = transmute(&raw_event);
+                VideoResizeEvent(raw_videoresize_event.to_hl())
             }
             _ => NoEvent
         }

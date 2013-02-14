@@ -32,3 +32,12 @@ pub impl ll::event::SDL_MouseMotionEvent: ToHl<event::MouseMotionEvent> {
         }
     }
 }
+
+pub impl ll::event::SDL_VideoResizeEvent: ToHl<event::VideoResizeEvent> {
+    pub fn to_hl(&self) -> event::VideoResizeEvent {
+        event::VideoResizeEvent {
+            w: self.w,
+            h: self.h
+        }
+    }
+}

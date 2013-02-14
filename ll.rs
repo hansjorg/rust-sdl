@@ -136,6 +136,12 @@ pub mod event {
         yrel: i16
     }
 
+    pub struct SDL_VideoResizeEvent {
+        type_: SDL_EventType,
+        w: u32,
+        h: u32
+    }
+
     extern {
         fn SDL_PollEvent(event: *SDL_Event) -> c_int;
     }
